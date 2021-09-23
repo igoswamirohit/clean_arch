@@ -1,12 +1,13 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/service/service.dart';
+import 'core/service/link_outside_world.dart';
+import 'data/repositories/authentication_repository_impl.dart';
+import 'domain/repositories/authentication_repository.dart';
+import 'domain/usecases/login_usecase.dart';
 import 'features/authentication/data/datasources/authentication_remote_data_source.dart';
-import 'features/authentication/data/repositories/authentication_repository_impl.dart';
-import 'features/authentication/domain/repositories/authentication_repository.dart';
-import 'features/authentication/domain/usecases/login.dart';
-import 'features/authentication/presentation/bloc/auth_bloc.dart';
+
+import 'features/authentication/presentation/blocs/auth_bloc/auth_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -18,7 +19,7 @@ Future<void> init() async {
   );
 
   // Use cases
-  sl.registerLazySingleton(() => Login(sl()));
+  sl.registerLazySingleton(() => LoginUseCase(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthenticationRepository>(
@@ -31,7 +32,7 @@ Future<void> init() async {
   );
 
   //Service
-  sl.registerLazySingleton<Service>(() => Service.create());
+  sl.registerLazySingleton<LinkToOutSideWorld>(() => LinkToOutSideWorld());
 
   // sl.registerLazySingleton<>(
   //   () => NumberTriviaLocalDataSourceImpl(sharedPreferences: sl()),

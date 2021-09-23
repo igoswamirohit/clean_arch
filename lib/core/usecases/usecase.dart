@@ -1,12 +1,15 @@
-import 'package:chopper/chopper.dart';
-import 'package:clean/features/authentication/domain/entities/user.dart';
-import 'package:equatable/equatable.dart';
-
-abstract class UseCase<Type, Params> {
-  Future<Response<User>> call(Params params);
+abstract class BaseUseCase<T> {
+  const BaseUseCase();
 }
 
-class NoParams extends Equatable {
-  @override
-  List<Object> get props => [];
+abstract class UseCase<T, P> extends BaseUseCase<T> {
+  const UseCase() : super();
+
+  Future<T> call(P params);
+}
+
+abstract class NoParamsUseCase<T> extends BaseUseCase<T> {
+  const NoParamsUseCase() : super();
+
+  Future<T> call();
 }

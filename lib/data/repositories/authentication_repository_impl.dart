@@ -1,9 +1,7 @@
-import 'package:chopper/chopper.dart';
-import 'package:clean/features/authentication/data/models/user_model.dart';
 
-import '../../domain/entities/user.dart';
 import '../../domain/repositories/authentication_repository.dart';
 import '../datasources/authentication_remote_data_source.dart';
+import '../models/user_model.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   final AuthenticationRemoteDataSource remoteDataSource;
@@ -13,7 +11,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   });
 
   @override
-  Future<Response<UserModel>> login(String email, String password) async {
+  Future<UserModel> login(String email, String password) async {
     return remoteDataSource.login(email, password);
   }
 }

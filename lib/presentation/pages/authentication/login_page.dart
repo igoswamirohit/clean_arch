@@ -1,15 +1,14 @@
-import 'dart:developer';
-
-import 'package:clean/features/authentication/presentation/widgets/common/neo_white_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../injection_container.dart';
-import '../../bloc/auth_bloc.dart';
-import '../../bloc/bloc.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
+import '../../blocs/bloc.dart';
 import '../../widgets/common/neo_textfield.dart';
+import '../../widgets/common/neo_white_btn.dart';
 import '../../widgets/widgets.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   String? email, password;
 
@@ -29,14 +28,14 @@ class LoginPage extends StatelessWidget {
                 child: Center(
                   child: BlocConsumer<AuthBloc, AuthState>(
                       listener: (context, state) {
-                    if (state is AuthLoginLoaded)
+                    if (state is AuthLoginLoaded) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                              'Welcome to NeoSTORE ${state.user.firstName!}'),
+                              'Welcome to NeoSTORE ${state.user.firstName}'),
                         ),
                       );
-                    else if (state is AuthLoginError) {
+                    } else if (state is AuthLoginError) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(state.message),

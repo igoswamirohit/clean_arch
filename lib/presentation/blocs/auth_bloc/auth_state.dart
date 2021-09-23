@@ -2,7 +2,7 @@ import 'package:chopper/chopper.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../domain/entities/user.dart';
+import '../../../domain/entities/user.dart';
 
 @immutable
 abstract class AuthState extends Equatable {
