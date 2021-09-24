@@ -28,14 +28,14 @@ class LoginPage extends StatelessWidget {
                 child: Center(
                   child: BlocConsumer<AuthBloc, AuthState>(
                       listener: (context, state) {
-                    if (state is AuthLoginLoaded) {
+                    if (state is AuthLoginSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
                               'Welcome to NeoSTORE ${state.user.firstName}'),
                         ),
                       );
-                    } else if (state is AuthLoginError) {
+                    } else if (state is AuthLoginFailure) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(state.message),
@@ -43,7 +43,7 @@ class LoginPage extends StatelessWidget {
                       );
                     }
                   }, builder: (context, state) {
-                    if (state is AuthLoginLoading) {
+                    if (state is AuthLoginProgress) {
                       return LoadingWidget();
                     } else {
                       return Container(

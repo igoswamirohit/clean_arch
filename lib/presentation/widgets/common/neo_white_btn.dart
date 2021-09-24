@@ -20,9 +20,7 @@ class NeoWhiteBtn extends StatelessWidget {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          primary: Colors.white,
-          onPrimary: Colors.red,
-        ),
+            primary: Colors.white, onPrimary: Colors.red, elevation: 1),
       ),
     );
   }

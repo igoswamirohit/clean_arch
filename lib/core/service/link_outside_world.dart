@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:chopper/chopper.dart';
+import 'package:clean/data/models/user_model.dart';
 
-import '../../features/authentication/data/models/user_model.dart';
 import '../util/jsonToTypeConverter.dart';
-import 'api_constants.dart';
+import '../constants/api_constants.dart';
 
 abstract class OutSideWorld {
   Future<T> request<T>({

@@ -2,12 +2,11 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/service/link_outside_world.dart';
+import 'data/datasources/authentication/authentication_remote_data_source.dart';
 import 'data/repositories/authentication_repository_impl.dart';
 import 'domain/repositories/authentication_repository.dart';
-import 'domain/usecases/login_usecase.dart';
-import 'features/authentication/data/datasources/authentication_remote_data_source.dart';
-
-import 'features/authentication/presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'domain/usecases/auth_usecases.dart';
+import 'presentation/blocs/bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -15,11 +14,12 @@ Future<void> init() async {
   //! Features - Login
   // Bloc
   sl.registerFactory(
-    () => AuthBloc(sl()),
+    () => AuthBloc(sl(), sl()),
   );
 
   // Use cases
   sl.registerLazySingleton(() => LoginUseCase(sl()));
+  sl.registerLazySingleton(() => RegisterUseCase(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthenticationRepository>(

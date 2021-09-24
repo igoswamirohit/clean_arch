@@ -1,6 +1,7 @@
+import 'package:clean/presentation/pages/authentication/register_page.dart';
 import 'package:flutter/material.dart';
 
-import 'features/authentication/presentation/pages/authentication/login_page.dart';
+import 'presentation/pages/authentication/login_page.dart';
 
 class App extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
           selectionHandleColor: Colors.white,
         ),
       ),
-      home: LoginPage(),
+      home: RegisterPage(),
     );
   }
 }

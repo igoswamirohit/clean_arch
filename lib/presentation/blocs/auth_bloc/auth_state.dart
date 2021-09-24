@@ -1,8 +1,4 @@
-import 'package:chopper/chopper.dart';
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-import '../../../domain/entities/user.dart';
+part of 'auth_bloc.dart';
 
 @immutable
 abstract class AuthState extends Equatable {
@@ -12,10 +8,10 @@ abstract class AuthState extends Equatable {
 
 class AuthLoginInitial extends AuthState {}
 
-class AuthLoginLoading extends AuthState {}
+class AuthLoginProgress extends AuthState {}
 
-class AuthLoginLoaded extends AuthState {
-  AuthLoginLoaded({required this.user});
+class AuthLoginSuccess extends AuthState {
+  AuthLoginSuccess({required this.user});
 
   final User user;
 
@@ -23,8 +19,28 @@ class AuthLoginLoaded extends AuthState {
   List<Object> get props => [user];
 }
 
-class AuthLoginError extends AuthState {
-  AuthLoginError({required this.message});
+class AuthLoginFailure extends AuthState {
+  AuthLoginFailure({required this.message});
+
+  final String message;
+
+  @override
+  List<Object> get props => [message];
+}
+
+class AuthRegisterProgress extends AuthState {}
+
+class AuthRegisterSuccess extends AuthState {
+  AuthRegisterSuccess({required this.user});
+
+  final user;
+
+  @override
+  List<Object> get props => [user];
+}
+
+class AuthRegisterFailure extends AuthState {
+  AuthRegisterFailure({required this.message});
 
   final String message;
 
