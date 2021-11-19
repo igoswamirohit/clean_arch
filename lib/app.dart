@@ -1,5 +1,6 @@
 import 'package:clean/injection_container.dart';
 import 'package:clean/presentation/blocs/products_bloc/products_bloc.dart';
+import 'package:clean/presentation/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +24,7 @@ class App extends StatelessWidget {
             selectionHandleColor: Colors.white,
           ),
         ),
+        // initialRoute: ProductListPage.routeName,
         onGenerateRoute: CustomRouter.generateRoute,
       ),
     );

@@ -14,6 +14,10 @@ class CustomRouter {
         return MaterialPageRoute(
           builder: (context) => HomePage(),
         );
+      case ProductListPage.routeName:
+        return MaterialPageRoute(
+          builder: (context) => ProductListPage(),
+        );
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

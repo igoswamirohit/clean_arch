@@ -81,6 +81,10 @@ extension NavigationExt on BuildContext {
     return await navigator!.push<T>(MaterialPageRoute(builder: builder));
   }
 
+  Future<T?> pushNamed<T>(String routeName) async {
+    return await navigator!.pushNamed<T>(routeName);
+  }
+
   void pop<T>([T? result]) => navigator!.pop<T>(result);
 
   /// Pushes the built widget to the screen using the material fade in animation

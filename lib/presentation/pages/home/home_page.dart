@@ -1,7 +1,9 @@
 import 'package:clean/injection_container.dart';
 import 'package:clean/presentation/blocs/bloc.dart';
+import 'package:clean/presentation/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/extensions/extensions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,49 +24,47 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<ProductsBloc>(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('NeoSTORE'),
-          centerTitle: true,
-          leading: Icon(Icons.menu),
-          backgroundColor: Colors.red,
-          elevation: 0,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset('assets/images/furniture.jpg'),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 1,
-                  ),
-                  physics: BouncingScrollPhysics(),
-                  children: List.generate(
-                    categories.length,
-                    (index) => CategoryBox(
-                      title: categories[index],
-                      onClick: () {
-                        context
-                            .read<ProductsBloc>()
-                            .add(FetchProducts(index + 1));
-                      },
-                    ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('NeoSTORE'),
+        centerTitle: true,
+        leading: Icon(Icons.menu),
+        backgroundColor: Colors.red,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset('assets/images/furniture.jpg'),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: GridView(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 1,
+                ),
+                physics: BouncingScrollPhysics(),
+                children: List.generate(
+                  categories.length,
+                  (index) => CategoryBox(
+                    title: categories[index],
+                    onClick: () {
+                      context
+                          .read<ProductsBloc>()
+                          .add(FetchProducts(index + 1,1));
+                      context.pushNamed(ProductListPage.routeName);
+                    },
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

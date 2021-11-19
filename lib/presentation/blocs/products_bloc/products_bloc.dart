@@ -18,12 +18,16 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   ) async* {
     if (event is FetchProducts) {
       try {
-        yield ProductsFetchProgress();
-        final productList = await productsUseCase(event.productCategoryId);
+        yield _mapPageToState(event.page);
+        final productList = await productsUseCase(FetchProductsParams(event.productCategoryId, event.page));
         yield ProductsFetchSuccess(productList);
       } on Exception catch (e) {
         yield ProductsFetchFailure(e);
       }
     }
+  }
+
+  ProductsState _mapPageToState(int page) {
+    return page == 0 ? ProductsFetchProgress() : ProductsFurtherFetchProgress();
   }
 }

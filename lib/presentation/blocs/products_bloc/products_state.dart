@@ -11,6 +11,8 @@ class ProductsInitial extends ProductsState {}
 
 class ProductsFetchProgress extends ProductsState {}
 
+class ProductsFurtherFetchProgress extends ProductsState {}
+
 class ProductsFetchSuccess extends ProductsState {
   ProductsFetchSuccess(this.productModel);
 

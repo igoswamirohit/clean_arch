@@ -9,6 +9,7 @@ abstract class ProductsEvent extends Equatable {
 
 class FetchProducts extends ProductsEvent {
   final int productCategoryId;
+  final int page;
 
-  FetchProducts(this.productCategoryId);
+  FetchProducts(this.productCategoryId,this.page);
 }
