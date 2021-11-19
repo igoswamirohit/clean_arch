@@ -1,3 +1,7 @@
+import 'package:clean/data/datasources/products/proucts_remote_datasource.dart';
+import 'package:clean/data/repositories/product_repository.dart';
+import 'package:clean/domain/repositories/product_repository.dart';
+import 'package:clean/domain/usecases/products_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,7 +15,8 @@ import 'presentation/blocs/bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  //! Features - Login
+  // Features - Authentication - Start
+
   // Bloc
   sl.registerFactory(
     () => AuthBloc(sl(), sl()),
@@ -31,12 +36,32 @@ Future<void> init() async {
     () => AuthenticationRemoteDataSourceImpl(sl()),
   );
 
+  // Feature - Authentication End
+
+
+// Feature - Products
+    // Bloc
+  sl.registerFactory(
+    () => ProductsBloc(sl()),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => FetchProductsUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<ProductsRepository>(
+    () => ProductsRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<ProductsRemoteDataSource>(
+    () => ProductsRemoteDataSourceImpl(sl()),
+  );
+
+  // Feature - Products End
+
   //Service
   sl.registerLazySingleton<LinkToOutSideWorld>(() => LinkToOutSideWorld());
-
-  // sl.registerLazySingleton<>(
-  //   () => NumberTriviaLocalDataSourceImpl(sharedPreferences: sl()),
-  // );
 
   //! Core
   // sl.registerLazySingleton(() => InputConverter());
@@ -44,7 +69,5 @@ Future<void> init() async {
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
-  // sl.registerLazySingleton(() => sharedPreferences);
-  // sl.registerLazySingleton(() => http.Client());
-  // sl.registerLazySingleton(() => DataConnectionChecker());
+  sl.registerLazySingleton(() => sharedPreferences);
 }

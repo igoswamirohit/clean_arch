@@ -3,4 +3,6 @@ class ApiConstants {
 
   static const LOGIN = "trainingapp/api/users/login";
   static const REGISTER = "trainingapp/api/users/register";
+  static const PRODUCTS = "trainingapp/api/products/getList";
+
 }

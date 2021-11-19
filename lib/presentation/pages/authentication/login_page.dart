@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../injection_container.dart';
+import '../../../core/extensions/extensions.dart';
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../blocs/bloc.dart';
 import '../../widgets/common/neo_textfield.dart';
 import '../../widgets/common/neo_white_btn.dart';
 import '../../widgets/widgets.dart';
+import '../pages.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
@@ -26,17 +28,18 @@ class LoginPage extends StatelessWidget {
               Expanded(
                 flex: 25,
                 child: Center(
-                  child: BlocConsumer<AuthBloc, AuthState>(
-                      listener: (context, state) {
+                  child:
+                      BlocConsumer<AuthBloc, AuthState>(listener: (_, state) {
                     if (state is AuthLoginSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      context.showSnackbar(
                         SnackBar(
                           content: Text(
                               'Welcome to NeoSTORE ${state.user.firstName}'),
                         ),
                       );
+                      context.nextPage(HomePage());
                     } else if (state is AuthLoginFailure) {
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      context.showSnackbar(
                         SnackBar(
                           content: Text(state.message),
                         ),

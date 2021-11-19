@@ -1,22 +1,30 @@
-import 'package:clean/presentation/pages/authentication/register_page.dart';
+import 'package:clean/injection_container.dart';
+import 'package:clean/presentation/blocs/products_bloc/products_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'presentation/pages/authentication/login_page.dart';
+import 'core/router/router.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Neo Store',
-      theme: ThemeData(
-        primaryColor: Color(0xff9e0100),
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Colors.white,
-          selectionColor: Colors.white,
-          selectionHandleColor: Colors.white,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<ProductsBloc>(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Neo Store',
+        theme: ThemeData(
+          primaryColor: Color(0xff9e0100),
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: Colors.white,
+            selectionHandleColor: Colors.white,
+          ),
         ),
+        onGenerateRoute: CustomRouter.generateRoute,
       ),
-      home: RegisterPage(),
     );
   }
 }

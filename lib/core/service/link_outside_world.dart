@@ -1,28 +1,33 @@
 import 'dart:developer';
 
 import 'package:chopper/chopper.dart';
-import 'package:clean/data/models/user_model.dart';
+import 'package:clean/data/models/product_model.dart';
 
-import '../util/jsonToTypeConverter.dart';
+import '../../data/models/user_model.dart';
 import '../constants/api_constants.dart';
+import '../util/jsonToTypeConverter.dart';
+
+const GET = 'GET';
+const POST = 'POST';
+const PUT = ' PUT';
+const DELETE = 'DELETE';
 
 abstract class OutSideWorld {
-  Future<T> request<T>({
-    required String url,
+  Future<T> request<T>(
+      {required String url,
       String? baseUrl,
       required String method,
       Map<String, dynamic>? body,
       Map<String, String>? headers,
-      Map<String, dynamic>? params
-  });
+      Map<String, dynamic>? params});
 }
-
 
 class LinkToOutSideWorld extends OutSideWorld {
   final client = ChopperClient(
       baseUrl: ApiConstants.BASE_URL,
       converter: JsonSerializableConverter({
         UserModel: (jsonData) => UserModel.fromJson(jsonData['data']),
+        ProductModel: (jsonData) => ProductModel.fromJson(jsonData),
       }),
       interceptors: [
         HttpLoggingInterceptor(),
@@ -51,7 +56,11 @@ class LinkToOutSideWorld extends OutSideWorld {
         parts: partValue ?? []);
 
     final Response<T> response;
+    // try {
     response = await client.send<T, T>(request).timeout(Duration(seconds: 15));
+    // } catch (e) {
+    //   throw Exception(e);
+    // }
     return _handleResponse(response) as T;
   }
 
